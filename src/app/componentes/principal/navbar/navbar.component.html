@@ -1,0 +1,23 @@
+<header id="header">
+    <div class="center">
+        <!-- LOGO-->
+        <div id="logo">
+            <img src="../../../../assets/images/assetsLOGIN/LOGIN_LOGOGM.png" [routerLink] ="['/index']" style="border: 0;"class="app-logo" alt="Logotipo">
+        </div>
+        <!--MENU-->
+        <nav class="navbar menu" id="menu">
+            <!-- Navbar content -->
+            <ul>
+                <li><a [routerLink] ="['/index']" [routerLinkActive]="['active']">Inicio</a></li>
+                <li><a  [routerLinkActive]="['active']">Blog</a></li>
+                <li><a  [routerLinkActive]="['active']">Módulos</a></li>
+                <li><a  [routerLinkActive]="['active']">Catálogo</a></li>
+                <li><a  class="btn-red" [routerLink] ="['/home']" (click)="cerrarSesion()">Cerrar Sesión</a></li>
+            </ul>
+          </nav>
+
+  <!-- Navbar -->
+        <!--LIMPIAR LO FLOTADO-->
+        <div class="clearfix"></div>
+    </div>
+</header>
