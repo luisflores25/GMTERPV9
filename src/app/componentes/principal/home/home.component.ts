@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/Models/data-login';
 import { ComunicacionLoginService } from '../../../../services/comunicacionLogin';
-import { AppComponent } from '../../../app.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +11,8 @@ import { AppComponent } from '../../../app.component';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _route: ActivatedRoute,
+    private _router: Router) { }
 
   ngOnInit() {
  }

@@ -12,17 +12,17 @@ import { AppComponent } from '../../../app.component';
   providers: [alertas]
 })
 export class NavbarComponent implements OnInit {
-  @Input() user: User;
+  public user: User;
   public ws: WebSocket;
   constructor(private alert: alertas,
     private _route: ActivatedRoute,
     private _router: Router,private servicioComunicacion: ComunicacionLoginService,
     private notif: AppComponent
-    ) { }
+    ) {
+      this.user = new User('',sessionStorage.getItem('EMPRESA'),sessionStorage.getItem('USER'),'')
+     }
 
     ngOnInit() {
-    
-      this.user=this.servicioComunicacion.user;
       this.ws = new WebSocket('ws://localhost:6060');
       this.ws.onopen = () => {
         this.ws.send(this.user.empresa);

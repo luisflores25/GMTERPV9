@@ -28,12 +28,14 @@ export class ComunicacionLoginService{
             }
         ));
     }
-    login(user: any=null):Observable<any>{
+    login(user: any):Observable<any>{
         return this.httpClient.post<any>(`${this.AUTH_SERVER}/login`,user).pipe(tap(
             (res:any)=>{
                 if(res){
                     //guardar token
                     this.saveToken(res.accessToken, res.expiresIn);
+                    sessionStorage.setItem("EMPRESA",user.empresa);
+                    sessionStorage.setItem("USER",user.usuario);
                 }
             }
         ));
@@ -44,19 +46,18 @@ export class ComunicacionLoginService{
     }
     logout(){
         this.token= '';
-        localStorage.removeItem("ACCESS_TOKEN");
-        localStorage.removeItem("EXPIRES_IN");
+        sessionStorage.clear();
     }
 
     private saveToken (token: string, expiresIn: string): void{
-        localStorage.setItem("ACCESS_TOKEN",token);
-        localStorage.setItem("EXPIRES_IN",expiresIn);
+        sessionStorage.setItem("ACCESS_TOKEN",token);
+        sessionStorage.setItem("EXPIRES_IN",expiresIn);
         this.token=token;
         }
 
     private getToken():string{
         if(!this.token){
-            this.token = localStorage.getItem("ACCESS_TOKEN");
+            this.token = sessionStorage.getItem("ACCESS_TOKEN");
         }
         return this.token;
     }

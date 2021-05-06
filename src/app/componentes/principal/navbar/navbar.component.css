@@ -18,17 +18,11 @@ body{
     border-top: 3px solid #d43a3a;
 }
 #logo{
-    width: 30%;
+    width: 20%;
     font-size: 30px;
     float: left;
     margin-top: 35px;
 
-}
-.tracto{
-    height: auto;
-    width: auto;
-    max-width: 60px;
-    max-height: 40px;
 }
 #logo img{
     display: block;
@@ -37,9 +31,6 @@ body{
     margin-top: -10px;
     margin-right: 0px;
     animation: latir infinite 1s linear;
-}
-#logo span{
-    margin-left: -10px;
 }
 @keyframes latir{
     0%{
@@ -66,7 +57,7 @@ body{
     margin: 0px auto;
 }
 #menu{
-    width: 70%;
+    width: 50%;
     float: right;
     font-size: 16px;
 }
