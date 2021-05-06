@@ -370,6 +370,13 @@ textarea{
     #menu ul{
        width:90%;
    }
+   #logo img{
+    display: block;
+    float: left;
+    width: auto;
+    margin-top: -10px;
+    margin-right: auto;
+}
 }
  @media(max-width:1117px){
      .center{
@@ -377,6 +384,13 @@ textarea{
      }
      #menu ul{
         width:90%;
+    }
+    #logo img{
+        display: block;
+        float: left;
+        width: auto;
+        margin-top: -10px;
+        margin-right: auto;
     }
  }
  @media(max-width:987px){
@@ -389,13 +403,10 @@ textarea{
     #logo img{
         display: block;
         float: left;
-        height: 60px;
         margin-top: -10px;
-        margin-right: auto;
-        animation: latir infinite 1s linear;
     }
 }
-@media(max-width:821px){
+@media(max-width:874px){
     #header{
         padding-bottom: 40px;
     }

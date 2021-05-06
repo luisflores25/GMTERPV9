@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { User } from '../app/Models/data-login';
 import { JwtResponse } from '../app/Models/jwt-response';
-import{ Observable, BehaviorSubject, Subject } from 'rxjs';
+import{ Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -40,7 +40,7 @@ export class ComunicacionLoginService{
             }
         ));
     }
-    verifyToken(token: any):Observable<any>{
+    verifyToken(token: string):Observable<any>{
         const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
         return this.httpClient.get<any>(`${this.AUTH_SERVER}/auth`,{headers:headers});
     }
