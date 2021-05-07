@@ -21,7 +21,7 @@ export class FormularioLoginComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private data: ComunicacionLoginService) {
-    this.login = new User(null,null, null, null);
+    this.login = new User(null,null, null, null,null);
 
   }
   ngOnInit(): void {

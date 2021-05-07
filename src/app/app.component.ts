@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NotificationsService } from 'angular2-notifications'
+import { NotificationsService } from 'angular2-notifications';
+import { User } from './Models/data-login';
+import { AuthenticationService } from './_services';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +10,15 @@ import { NotificationsService } from 'angular2-notifications'
 })
 export class AppComponent {
   title = 'GMTERPV9';
-
+  user: User;
   constructor(
-    private services: NotificationsService
-  ){
+    private services: NotificationsService,private authenticationService: AuthenticationService
+  ){this.authenticationService.user.subscribe(x => this.user = x);
   }
+
+  logout() {
+    this.authenticationService.logout();
+}
 
   onSuccess(message: string){
     this.services.info(

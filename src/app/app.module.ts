@@ -1,7 +1,10 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing, appRoutingProviders } from './app-routing.module'
 import {FormsModule} from '@angular/forms';
+import { AuthenticationService } from './_services';
+import { fakeBackendProvider } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor, appInitializer } from './_helpers';
 
 import { AppComponent } from './app.component';
 import { FormularioLoginComponent } from './componentes/loginCMP/formulario-login/formulario-login.component';
@@ -19,7 +22,7 @@ import { PanelArticuloComponent } from './componentes/loginCMP/panel-articulo/pa
 import { HomeComponent } from './componentes/principal/home/home.component';
 import { SidenavAutosizeComponent } from './componentes/principal/sidenav-autosize/sidenav-autosize.component';
 import { NavbarComponent } from './componentes/principal/navbar/navbar.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SimpleNotificationsModule } from 'angular2-notifications'
 
 @NgModule({
@@ -37,7 +40,10 @@ import { SimpleNotificationsModule } from 'angular2-notifications'
   imports: [
     BrowserModule,routing,FormsModule, BrowserAnimationsModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,HttpClientModule,SimpleNotificationsModule.forRoot()
   ],
-  providers: [appRoutingProviders],
+  providers: [{ provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthenticationService] },
+  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },appRoutingProviders,
+  fakeBackendProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
