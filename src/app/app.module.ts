@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { routing, appRoutingProviders } from './app-routing.module'
 import {FormsModule} from '@angular/forms';
 import { AuthenticationService } from './_services';
-import { fakeBackendProvider } from './_helpers';
+//import { fakeBackendProvider } from './_helpers';
 import { JwtInterceptor, ErrorInterceptor, appInitializer } from './_helpers';
 
 import { AppComponent } from './app.component';
@@ -23,7 +23,8 @@ import { HomeComponent } from './componentes/principal/home/home.component';
 import { SidenavAutosizeComponent } from './componentes/principal/sidenav-autosize/sidenav-autosize.component';
 import { NavbarComponent } from './componentes/principal/navbar/navbar.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SimpleNotificationsModule } from 'angular2-notifications'
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { FormularioLogin2Component } from './componentes/loginCMP/formulario-login2/formulario-login2.component'
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications'
     PanelArticuloComponent,
     HomeComponent,
     SidenavAutosizeComponent,
-    NavbarComponent
+    NavbarComponent,
+    FormularioLogin2Component
   ],
   imports: [
     BrowserModule,routing,FormsModule, BrowserAnimationsModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,HttpClientModule,SimpleNotificationsModule.forRoot()
@@ -43,7 +45,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications'
   providers: [{ provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthenticationService] },
   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },appRoutingProviders,
-  fakeBackendProvider],
+  /*fakeBackendProvider*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

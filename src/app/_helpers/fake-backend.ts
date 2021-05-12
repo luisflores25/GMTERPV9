@@ -1,4 +1,7 @@
-﻿import { Injectable } from '@angular/core';
+﻿//QUITARRRRRRRRRRRR
+
+
+import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
@@ -44,8 +47,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // route functions
 
         function authenticate() {
-            const { username, password } = body;
-            const user = users.find(x => x.username === username && x.password === password);
+            const { empresa, username, password } = body;
+            const user = users.find(x => x.empresa === empresa && x.username === username && x.password === password);
             
             if (!user) return error('Username or password is incorrect');
 

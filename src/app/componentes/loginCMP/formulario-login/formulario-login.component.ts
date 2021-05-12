@@ -3,13 +3,12 @@ import { User } from '../../../Models/data-login';
 import { alertas } from '../../../../services/alertas';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ComunicacionLoginService } from '../../../../services/comunicacionLogin';
-import { AppComponent } from '../../../app.component';
 
 @Component({
   selector: 'app-formulario-login',
   templateUrl: './formulario-login.component.html',
   styleUrls: ['./formulario-login.component.css'],
-  providers: [alertas,AppComponent]
+  providers: [alertas]
 })
 export class FormularioLoginComponent implements OnInit {
   public login: User;
@@ -17,7 +16,6 @@ export class FormularioLoginComponent implements OnInit {
   showFiller = false;
   constructor(
     private alert: alertas,
-    private notif: AppComponent,
     private _route: ActivatedRoute,
     private _router: Router,
     private data: ComunicacionLoginService) {

@@ -4,18 +4,24 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 import { User } from '../Models/data-login';
+import * as publicIp from 'public-ip';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
-
+    ipAddress: string;
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
+        (async () => {
+            publicIp.v4().then((ip) => 
+                this.ipAddress = ip
+            );
+        })();
         this.userSubject = new BehaviorSubject<User>(null);
         this.user = this.userSubject.asObservable();
     }
@@ -24,9 +30,10 @@ export class AuthenticationService {
         return this.userSubject.value;
     }
 
-    login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password }, { withCredentials: true })
+    login(empresa: string, usuario: string, password: string) {
+        return this.http.post<any>(`${environment.apiUrl}/authenticate`, { empresa, usuario, password, ipAddress: this.ipAddress}, { withCredentials: true })
             .pipe(map(user => {
+                console.log(user);
                 this.userSubject.next(user);
                 this.startRefreshTokenTimer();
                 return user;
@@ -34,14 +41,14 @@ export class AuthenticationService {
     }
 
     logout() {
-        this.http.post<any>(`${environment.apiUrl}/users/revoke-token`, {}, { withCredentials: true }).subscribe();
+        this.http.post<any>(`${environment.apiUrl}/revoke-token`, {}, { withCredentials: true }).subscribe();
         this.stopRefreshTokenTimer();
         this.userSubject.next(null);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
     }
 
     refreshToken() {
-        return this.http.post<any>(`${environment.apiUrl}/users/refresh-token`, {}, { withCredentials: true })
+        return this.http.post<any>(`${environment.apiUrl}/refresh-token`, {}, { withCredentials: true })
             .pipe(map((user) => {
                 this.userSubject.next(user);
                 this.startRefreshTokenTimer();

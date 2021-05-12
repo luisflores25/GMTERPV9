@@ -2,7 +2,6 @@
     <mat-drawer #drawer class="example-sidenav" mode="over" [opened]="false">
       <app-sidebar id="sidebar-nav"></app-sidebar>
     </mat-drawer>
-    
 <div class="body-login">
     <div class="form rounded">
         <div id="logo">
@@ -13,32 +12,33 @@
             <form #useForm="ngForm" (ngSubmit)="onSubmit()">
                 <div class="content">
                     <div class="input-data">
-                        <input type="text" name="empresa" #empresa="ngModel" [(ngModel)]="login.empresa"
+                        <input type="text" name="empresa" #empresa="ngModel" [(ngModel)]="formData.empresa"
                             placeholder="Empresa" required>
                         <small *ngIf="!empresa.valid && empresa.touched">
                             <br> El campo no es válido
                         </small>
                     </div>
                     <div class="input-data">
-                        <input type="text" name="usuario" #usuario="ngModel" [(ngModel)]="login.usuario"
+                        <input type="text" name="usuario" #usuario="ngModel" [(ngModel)]="formData.usuario"
                             placeholder="Usuario" required>
                         <small *ngIf="!usuario.valid && usuario.touched">
                             <br> El campo no es válido
                         </small>
                     </div>
                     <div class="input-data">
-                        <input type="password" name="password" #password="ngModel" [(ngModel)]="login.password"
+                        <input type="password" name="password" #password="ngModel" [(ngModel)]="formData.password"
                             placeholder="Contraseña" required>
                         <small *ngIf="!password.valid && password.touched">
                             <br> El campo no es válido
                         </small>
                     </div>
                     <input type="submit" value="ENVIAR" class="btn btn-success" [disabled]="useForm.invalid">
+                    <div *ngIf="error">{{error}}</div>
                 </div>
             </form>
             <div class="imgs">
                 <div>
-                    <img src="https://seal.godaddy.com/images/3/en/siteseal_gd_3_h_l_m.gif" (click)="verifySeal()"
+                    <img src="https://seal.godaddy.com/images/3/en/siteseal_gd_3_h_l_m.gif"
                         alt="SSL site seal - click to verify" srcset="" class="cursor">
                 </div>
                 <div class="contactos">
