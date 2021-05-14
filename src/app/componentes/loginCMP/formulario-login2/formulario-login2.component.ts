@@ -25,7 +25,8 @@ export class FormularioLogin2Component implements OnInit {
   this.formData= new User("","","","");
     // redirect to home if already logged in
     if (this.authenticationService.userValue) { 
-       this.router.navigate(['/']);
+      console.log("entro aquí");
+             this.router.navigate(['/index']);
     }
 }
 

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { alertas } from 'src/services/alertas';
 import { ComunicacionLoginService } from '../../../../services/comunicacionLogin';
+import { AuthenticationService } from '../../../_services/authentication.service';
 import { User } from '../../../Models/data-login';
 import { AppComponent } from '../../../app.component';
 
@@ -16,14 +17,14 @@ export class NavbarComponent implements OnInit {
   public ws: WebSocket;
   constructor(private alert: alertas,
     private _route: ActivatedRoute,
-    private _router: Router, private servicioComunicacion: ComunicacionLoginService,
+    private _router: Router, private servicioComunicacion: ComunicacionLoginService, private auth: AuthenticationService,
     private notif: AppComponent
   ) {
     this.user = new User('', sessionStorage.getItem('EMPRESA'), sessionStorage.getItem('USER'), '')
   }
 
   ngOnInit() {
-    this.servicioComunicacion.verifyToken(sessionStorage.getItem('ACCESS_TOKEN')).subscribe(auth => {
+    /*this.servicioComunicacion.verifyToken(sessionStorage.getItem('ACCESS_TOKEN')).subscribe(auth => {
       if(auth) {
       this.ws = new WebSocket('ws://localhost:6060');
       this.ws.onopen = () => {
@@ -37,12 +38,13 @@ export class NavbarComponent implements OnInit {
     error => {
       if(error)
       this.cerrarSesion();
-    });
+    });*/
   }
   cerrarSesion() {
-    this.servicioComunicacion.logout();
+    /*this.servicioComunicacion.logout();
     if(this.ws)
     this.ws.close();
-    this._router.navigate(['/home']);
+    this._router.navigate(['/home']);*/
+    this.auth.logout();
   }
 }

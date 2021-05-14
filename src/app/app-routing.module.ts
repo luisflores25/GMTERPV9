@@ -1,6 +1,7 @@
 //Importar los modulos del router de angular
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './_helpers';
 
 // Importar componentes a los cuales quiero hacer una pagina exclusiva
 import { FormularioLoginComponent } from './componentes/loginCMP/formulario-login/formulario-login.component';
@@ -11,7 +12,7 @@ import { HomeComponent } from './componentes/principal/home/home.component';
 //Array de rutas
 
 const appRoutes: Routes = [
-    {path: '',component: FormularioLoginComponent},
+    {path: '',component: HomeComponent, canActivate: [AuthGuard]},
     {path: 'home',component: FormularioLoginComponent},
     {path: 'home2',component: FormularioLogin2Component},
     {path: 'index',component: HomeComponent}

@@ -33,9 +33,10 @@ export class AuthenticationService {
     login(empresa: string, usuario: string, password: string) {
         return this.http.post<any>(`${environment.apiUrl}/authenticate`, { empresa, usuario, password, ipAddress: this.ipAddress}, { withCredentials: true })
             .pipe(map(user => {
-                console.log(user);
+                console.log(user.token);
                 this.userSubject.next(user);
                 this.startRefreshTokenTimer();
+                console.log(user);
                 return user;
             }));
     }
