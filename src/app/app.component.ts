@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { User } from './Models/data-login';
 import { AuthenticationService } from './_services';
+import IdleTimer from "./IdleTimer";
 
 @Component({
   selector: 'app-root',
@@ -9,17 +10,29 @@ import { AuthenticationService } from './_services';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'GMTERPV9';
+  title = "Active";
+  timer: IdleTimer;
   user: User;
   constructor(
     private services: NotificationsService,private authenticationService: AuthenticationService
-  ){this.authenticationService.user.subscribe(x => this.user = x);
+  ){
+    this.authenticationService.user.subscribe(x => this.user = x);
   }
 
   logout() {
     this.authenticationService.logout();
 }
-
+ngOnInit() {
+  this.timer = new IdleTimer({
+    timeout: 600, //expired after 10 min
+    onTimeout: () => {
+      this.logout();
+    }
+  });
+}
+ngOnDestroy() {
+  this.timer.clear();
+}
   onSuccess(message: string){
     this.services.info(
       'Info',message, {
