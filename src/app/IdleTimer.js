@@ -19,7 +19,7 @@ class IdleTimer {
             this.cleanUp();
           }
         }
-            if((expiredTime - 119 * 1000)  > Date.now().valueOf() && (expiredTime - 120 * 1000)  < Date.now().valueOf()) {
+            if((expiredTime - 169 * 1000)  > Date.now().valueOf() && (expiredTime - 170 * 1000)  < Date.now().valueOf()) {
                 alert("Por seguridad le quedan 2 minutos en sesión si continua en inactividad.")
             }  
         
