@@ -4,15 +4,18 @@ import { User } from '../app/Models/data-login';
 import { JwtResponse } from '../app/Models/jwt-response';
 import{ Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ComunicacionLoginService{
+    
     AUTH_SERVER: String = 'http://localhost:3900/api';
     public user: User;
     private token: string;
-    constructor( private httpClient: HttpClient){
+    constructor( private httpClient: HttpClient,
+        private _router: Router){
         
     }
     enviarMessage(user: User): User{
@@ -31,14 +34,23 @@ export class ComunicacionLoginService{
     login(user: any):Observable<any>{
         return this.httpClient.post<any>(`${this.AUTH_SERVER}/login`,user).pipe(tap(
             (res:any)=>{
-                if(res){
+                if(res === "success"){
                     //guardar token
-                    this.saveToken(res.accessToken, res.expiresIn);
-                    sessionStorage.setItem("EMPRESA",user.empresa);
-                    sessionStorage.setItem("USER",user.usuario);
+                    this._router.navigate(['/']);
                 }
             }
         ));
+    }
+    verifySession() {
+      return this.httpClient.get(`${this.AUTH_SERVER}/auth`).pipe(tap(
+          (res:any)=>{
+              if (res == "success"){
+                  this._router.navigate(['/']);
+              }else{
+                  this._router.navigate(['/home']);
+              }
+          }
+      ))
     }
     verifyToken(token: string):Observable<any>{
         const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);

@@ -12,8 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,
-    private _router: Router) { }
+    private _router: Router, 
+    private comunicacionLogin: ComunicacionLoginService) { }
 
   ngOnInit() {
+    this.comunicacionLogin.verifySession();
  }
 }

@@ -7,8 +7,7 @@
         <!--MENU-->
         <nav class="navbar menu" id="menu">
             <!-- Navbar content -->
-            <ul>{{user.usuario}} 
-                {{user.empresa}}
+            <ul>
                 <li><a [routerLink] ="['/index']" [routerLinkActive]="['active']">Inicio</a></li>
                 <li><a  class="btn-red" [routerLink] ="['/home']" (click)="cerrarSesion()">Cerrar Sesión</a></li>
             </ul>

@@ -3,6 +3,7 @@ import { User } from '../../../Models/data-login';
 import { alertas } from '../../../../services/alertas';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ComunicacionLoginService } from '../../../../services/comunicacionLogin';
+import { AppComponent } from '../../../app.component';
 
 @Component({
   selector: 'app-formulario-login',
@@ -13,31 +14,40 @@ import { ComunicacionLoginService } from '../../../../services/comunicacionLogin
 export class FormularioLoginComponent implements OnInit {
   public login: User;
   public aviso: string = "";
+  public ws: WebSocket;
   showFiller = false;
   constructor(
     private alert: alertas,
     private _route: ActivatedRoute,
     private _router: Router,
-    private data: ComunicacionLoginService) {
+    private data: ComunicacionLoginService, 
+    private notif: AppComponent) {
     this.login = new User(null,null, null, null,null);
-
+    
   }
   ngOnInit(): void {
+    
   }
   onSubmit(): void {
     this.session();
   }
   session() {
         this.data.login(this.login).subscribe(res => {
-          if (res){
-            this.login=res.user;
-            this.data.enviarMessage(this.login);
-            this.data.verifyToken(res.accessToken).subscribe(auth => {
-              if(auth){
-                this.alert.exito("Sesión " + res.user.empresa + " iniciada");
+          console.log(res);
+          if (res.status === "success"){
+            /*this.data.verifyToken(res.accessToken).subscribe(auth => {
+              if(auth){*/
+                  this.ws = new WebSocket('ws://localhost:6060');
+                  this.ws.onopen = () => {
+                    this.ws.send(res./*user.*/empresa);
+                  }
+                  this.ws.onmessage = (msg) => {
+                    this.notif.onSuccess(msg.data);
+                  }
+                this.alert.exito("Sesión " + res./*user.*/empresa + " iniciada");
                 this._router.navigate(['/index']);
-              }
-            });
+              /*}
+            });*/
           }else
             this.aviso=res.error.message;
         });

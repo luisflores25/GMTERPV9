@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { User } from './Models/data-login';
-import { AuthenticationService } from './_services';
 import IdleTimer from "./IdleTimer";
 
 @Component({
@@ -14,13 +13,11 @@ export class AppComponent {
   timer: IdleTimer;
   user: User;
   constructor(
-    private services: NotificationsService,private authenticationService: AuthenticationService
+    private services: NotificationsService
   ){
-    this.authenticationService.user.subscribe(x => this.user = x);
   }
 
   logout() {
-    this.authenticationService.logout();
 }
 ngOnInit() {
   this.timer = new IdleTimer({
